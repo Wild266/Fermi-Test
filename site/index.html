@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galton's LLM Friends | Honors Contract Project</title>
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=IBM+Plex+Mono:wght@300;400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <header class="hero">
+    <div class="hero__content">
+      <p class="eyebrow">Akshan Sameullah · COMP 691H Honors Contract</p>
+      <h1>Galton's LLM Friends</h1>
+      <p class="lede">Investigating wisdom-of-crowds effects and calibrated estimation for language models on a handcrafted Fermi question benchmark.</p>
+      <div class="hero__cta">
+        <a class="btn btn--primary" href="#project-overview">Explore the project</a>
+        <a class="btn btn--ghost" href="https://github.com/akshan-sameullah/Fermi-Test" target="_blank" rel="noreferrer">View the code</a>
+      </div>
+      <ul class="stat-strip" id="hero-metrics">
+        <li>
+          <span class="stat-strip__value" data-metric="questions">–</span>
+          <span class="stat-strip__label">Questions curated</span>
+        </li>
+        <li>
+          <span class="stat-strip__value" data-metric="accuracy-base">–</span>
+          <span class="stat-strip__label">Qwen-7B baseline accuracy</span>
+        </li>
+        <li>
+          <span class="stat-strip__value" data-metric="accuracy-reasoning">–</span>
+          <span class="stat-strip__label">Self-consistent reasoning accuracy</span>
+        </li>
+      </ul>
+    </div>
+    <div class="hero__visual">
+      <div class="hero__orb"></div>
+      <div class="hero__scanlines"></div>
+    </div>
+  </header>
+
+  <main>
+    <section id="project-overview" class="section">
+      <div class="section__header">
+        <h2>Project Overview</h2>
+        <p class="section__lede">This honors contract explores whether ensemble-style prompting strategies can evoke Galton's wisdom-of-crowds dynamics in large language models (LLMs) when they solve noisy Fermi estimation tasks.</p>
+      </div>
+      <div class="pillars">
+        <article class="pillar">
+          <h3>Benchmark Creation</h3>
+          <p>Designed a 353-question dataset spanning population, energy, infrastructure, and whimsical estimation problems. Each item is annotated with vetted logarithmic answers to enable principled error analysis.</p>
+        </article>
+        <article class="pillar">
+          <h3>Reasoning Comparisons</h3>
+          <p>Evaluated vanilla Qwen-7B against a chain-of-thought (CoT) variant and a self-consistency ensemble. We measure both exact-order-of-magnitude accuracy and tolerance within ±1 order to capture near misses.</p>
+        </article>
+        <article class="pillar">
+          <h3>Calibration Research</h3>
+          <p>Inspired by NSF GRFP planning, the project lays groundwork for structured factorization, retrieval-augmented reasoning, and quantifying how impurity scales influence convergence toward correct magnitudes.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="methodology" class="section section--alt">
+      <div class="section__header">
+        <h2>Research Goals</h2>
+        <p class="section__lede">Guided by the COMP 691H learning contract and GRFP vision, the research centers on three intersecting thrusts.</p>
+      </div>
+      <div class="timeline">
+        <div class="timeline__item">
+          <h3>Structured Fermi Evaluation</h3>
+          <p>Curate questions with sourced ground truth ranges and unit checks, enabling reproducible benchmarking of LLM estimation skill.</p>
+        </div>
+        <div class="timeline__item">
+          <h3>Wisdom-of-Crowds Diagnostics</h3>
+          <p>Probe how sample size, prompt diversity, and self-consistency voting affect log-error shrinkage and convergence behavior.</p>
+        </div>
+        <div class="timeline__item">
+          <h3>Calibration & Retrieval</h3>
+          <p>Prototype decomposition strategies, base-rate retrieval, and distributional outputs to mitigate systematic biases in Fermi reasoning.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="results" class="section">
+      <div class="section__header">
+        <h2>Experimental Highlights</h2>
+        <p class="section__lede">Baseline vs. chain-of-thought vs. self-consistency ensembles on Qwen-7B (log<sub>10</sub> accuracy).</p>
+      </div>
+      <div class="results-grid">
+        <article class="result-card">
+          <h3>Single Sample Baseline</h3>
+          <p>The vanilla Qwen-7B model answered 34/353 questions exactly (9.6%) and landed within one order of magnitude for 45 questions (12.7%).</p>
+        </article>
+        <article class="result-card result-card--highlight">
+          <h3>CoT Reasoning Boost</h3>
+          <p>Adding chain-of-thought reasoning boosted exact accuracy to 106/353 (30.0%) and ±1 order coverage to 131/353 (37.1%), demonstrating strong benefits from explicit decomposition.</p>
+        </article>
+        <article class="result-card">
+          <h3>Self-Consistency Runs</h3>
+          <p>Using <code>fermi_direct.py</code> we sample multiple CoT completions and aggregate via majority vote. Collections are ongoing; initial batches indicate further uplift toward Galton-style averaging.</p>
+        </article>
+      </div>
+      <div class="metrics-panel">
+        <div class="metric">
+          <span class="metric__label">Majority vote accuracy (baseline)</span>
+          <span class="metric__value">26.6%</span>
+        </div>
+        <div class="metric">
+          <span class="metric__label">Majority vote accuracy (reasoning)</span>
+          <span class="metric__value">39.7%</span>
+        </div>
+        <div class="metric">
+          <span class="metric__label">Dataset release</span>
+          <span class="metric__value">FERMI Questions v1</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="question-explorer" class="section section--alt">
+      <div class="section__header">
+        <h2>Question Explorer</h2>
+        <p class="section__lede">Browse every prompt, compare predictions, and inspect histogram traces from self-consistency sweeps.</p>
+      </div>
+      <div class="explorer-controls">
+        <input id="search" type="search" placeholder="Search for a topic or keyword" />
+        <div class="filter-toggle">
+          <label><input type="checkbox" id="filter-improved" /> Show only questions where reasoning beat baseline</label>
+        </div>
+      </div>
+      <div id="question-list" class="question-list" role="list"></div>
+    </section>
+
+    <section id="future-work" class="section">
+      <div class="section__header">
+        <h2>Next Steps</h2>
+        <p class="section__lede">Future experiments will deepen statistical guarantees and expand modalities.</p>
+      </div>
+      <div class="pillars">
+        <article class="pillar">
+          <h3>Impurity Scale Sweeps</h3>
+          <p>Systematically vary sampling noise and impurity scales in self-consistency ensembles to measure law-of-large-numbers convergence.</p>
+        </article>
+        <article class="pillar">
+          <h3>Retrieval-Augmented Estimation</h3>
+          <p>Compare pure reasoning against retrieval-augmented answers to quantify base rate grounding and identify unit-conversion pitfalls.</p>
+        </article>
+        <article class="pillar">
+          <h3>Calibrated Ranges</h3>
+          <p>Extend the dataset with human-verified confidence intervals, enabling probability coverage evaluation and risk-aware scoring.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="resources" class="section section--alt">
+      <div class="section__header">
+        <h2>Resources</h2>
+        <p class="section__lede">Dive into code, data, and planning artifacts that scaffold the project.</p>
+      </div>
+      <div class="resource-grid">
+        <a class="resource" href="direct_results_good.xlsx" target="_blank" rel="noreferrer">
+          <span class="resource__title">FERMI Question Dataset</span>
+          <span class="resource__meta">Spreadsheet · 353 entries</span>
+        </a>
+        <a class="resource" href="fermi_direct.py" target="_blank" rel="noreferrer">
+          <span class="resource__title">Self-Consistency Collector</span>
+          <span class="resource__meta">Python · sampling orchestration</span>
+        </a>
+        <a class="resource" href="plots_annotated" target="_blank" rel="noreferrer">
+          <span class="resource__title">Histogram Gallery</span>
+          <span class="resource__meta">PNG · annotated distributions</span>
+        </a>
+        <a class="resource" href="COMP-691H-Learning-Contract-Plan.docx" target="_blank" rel="noreferrer">
+          <span class="resource__title">Learning Contract</span>
+          <span class="resource__meta">DOCX · project charter</span>
+        </a>
+        <a class="resource" href="GRFP Graduate Plan.pdf" target="_blank" rel="noreferrer">
+          <span class="resource__title">GRFP Graduate Plan</span>
+          <span class="resource__meta">PDF · long-term vision</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> Akshan Sameullah · Built with love for honors research.</p>
+  </footer>
+
+  <dialog id="question-modal" class="modal">
+    <div class="modal__content" role="document">
+      <button class="modal__close" type="button" aria-label="Close">×</button>
+      <div class="modal__body">
+        <h3 id="modal-question"></h3>
+        <p class="modal__meta" id="modal-meta"></p>
+        <div class="modal__summaries">
+          <div>
+            <h4>Baseline Snapshot</h4>
+            <p id="modal-base-summary"></p>
+          </div>
+          <div>
+            <h4>Reasoning Snapshot</h4>
+            <p id="modal-reasoning-summary"></p>
+          </div>
+        </div>
+        <div class="modal__plots">
+          <figure>
+            <img id="modal-base-plot" alt="Baseline histogram" loading="lazy" />
+            <figcaption>Baseline sample distribution</figcaption>
+          </figure>
+          <figure>
+            <img id="modal-reasoning-plot" alt="Reasoning histogram" loading="lazy" />
+            <figcaption>Reasoning sample distribution</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <script type="module" src="scripts/main.js"></script>
+</body>
+</html>
