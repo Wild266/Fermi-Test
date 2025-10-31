@@ -1,0 +1,20 @@
+{
+  "run_started_at": "2025-10-31 01:56:07",
+  "csv_path": "/home/asameull/Galton/GE8/LLN_Dataset.csv",
+  "out_dir": "results_sc_vllm/base/temp_0_4",
+  "temperature": "0.4",
+  "num_samples": "20",
+  "models_to_run": "both",
+  "max_new_tokens": "4096",
+  "seed_offset": "0",
+  "endpoints": [
+    "http://127.0.0.1:7471",
+    "http://127.0.0.1:7472",
+    "http://127.0.0.1:7473"
+  ],
+  "model_ids": [
+    "base",
+    "base",
+    "base"
+  ]
+}
